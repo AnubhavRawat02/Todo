@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LTasks" representedClassName="LTasks" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="todolist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QuickTodo" inverseName="tasks" inverseEntity="QuickTodo"/>
+    </entity>
+    <entity name="Projects" representedClassName="Projects" syncable="YES">
+        <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="completed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="totalTasks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PTasks" inverseName="project" inverseEntity="PTasks"/>
+    </entity>
+    <entity name="PTasks" representedClassName="PTasks" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="noSubtasks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="tasks" inverseEntity="Projects"/>
+        <relationship name="subtask" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubTask" inverseName="projectTask" inverseEntity="SubTask"/>
+    </entity>
+    <entity name="QuickTodo" representedClassName="QuickTodo" syncable="YES">
+        <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="completed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="totalTasks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LTasks" inverseName="todolist" inverseEntity="LTasks"/>
+    </entity>
+    <entity name="SubTask" representedClassName="SubTask" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="projectTask" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PTasks" inverseName="subtask" inverseEntity="PTasks"/>
+    </entity>
+</model>
